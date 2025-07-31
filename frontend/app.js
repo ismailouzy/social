@@ -17,8 +17,39 @@ function displayPosts(posts) {
   const feed = document.getElementById("feed");
   feed.innerHTML = "";
   posts.forEach(p => {
-    feed.innerHTML += `<div class="post"><p>${p.content}</p><small>Likes: ${p.likes}</small></div>`;
+    feed.innerHTML += `
+	  <div class="post">
+		  <p>${p.content}</p>
+		  <small>Likes: ${p.likeCount}</small><br>
+		  <button onclick="likePost(${p.id})">❤️ Like</button>
+		  </div>`;
   });
+}
+
+async function likePost(postId) {
+	if (!token)
+	{
+		alert("Login required to like!");
+		return;
+	}
+
+	const mutation = `
+	mutation {
+		likePost(postId: ${postId}) {
+			post { id likeCount }
+		}
+	}`;
+	await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "JWT " + token
+    },
+    body: JSON.stringify({ query: mutation }),
+  });
+
+  loadPosts(); // reload feed
+	
 }
 
 // Login and store token

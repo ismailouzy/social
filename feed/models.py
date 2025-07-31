@@ -4,8 +4,12 @@ from django.contrib.auth.models import User
 
 class Post(models.Model):
     content = models.TextField()
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField("auth.user", related_name="liked_posts", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def like_count(self):
+        return self.likes.count()
 
 
 class Comment(models.Model):
