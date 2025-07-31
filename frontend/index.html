@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Mini social media Feed</title>
+		<link href="styles.css" rel="stylesheet">
+	</head>
+	<body>
+		<h1>Social media Feed</h1>
+	
+		<!-- Login -->
+		<div id="login-section">
+			<input type="text" id="username" placeholder="Username">
+			<input type="password" id="password" placeholder="Password">
+			<button onclick="login()">Login</button>
+		</div>
+
+		<!-- Create Post -->
+		<div id="create-section" style="display:none;">
+			<input type="text" id="postContent" placeholder="What's on your mind?">
+			<button onclick="createPost()">Post</button>
+		</div>
+
+		<h2>Feed</h2>
+		<div id="feed">
+		</div>
+		<script src="app.js">
+		</script>
+	</body>
+</html>
