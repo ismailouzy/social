@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'graphene_django',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'django_graphiql',
     'feed',
     'django.contrib.admin',
@@ -43,8 +44,16 @@ INSTALLED_APPS = [
 ]
 
 GRAPHENE = {
-        'SCHEMA': 'feed.schema.schema'
+        'SCHEMA': 'feed.schema.schema',
+        'MIDDLEWARE': [
+            'graphql_jwt.middleware.JSONWebTokenMiddleware',
+            ],
         }
+
+AUTHENTICATION_BACKENDS = [
+        'graphql_jwt.backends.JSONWebTokenBackend',
+        'django.contrib.auth.backends.ModelBackend',
+        ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
